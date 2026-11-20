@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gimdropvalues.GimDropValuesBehaviorTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-20T01:53:56" hostname="a9d523aeab5f" time="0.059">
+  <properties/>
+  <testcase name="unrelatedGamePricesAndAggregateTotalsAreNotModified" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.048"/>
+  <testcase name="bothReportsUseTheSameHighAlchModeAndQuantity" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.005"/>
+  <testcase name="namedDropReportsAreAlsoHandledWhenDeliveredAsGameMessages" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="hidesOnlyDrawnPriceAndLeavesOriginalMessageAndOtherStackFieldsIntact" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.001"/>
+  <testcase name="sameWordsTypedByPlayerAreNotModified" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="optionalChannelsStillNeverIncludeHumanChat" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="personalDropWordsTypedByPlayersAreNotModified" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="unknownHighAlchValueAlsoHidesPersonalGamePrice" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="gameAndGroupSettingsCanBeDisabledIndependently" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.001"/>
+  <testcase name="defaultsAcceptGroupAndGameSystemMessages" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="highAlchModeUsesWholeStackAndUnknownValueFallsBackToNameOnly" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.001"/>
+  <testcase name="unrelatedCallbackAndNonDropBroadcastAreNotModified" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.0"/>
+  <testcase name="hidesPersonalGameDropInBothGameMessageTypesWithoutChangingOriginal" classname="com.gimdropvalues.GimDropValuesBehaviorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

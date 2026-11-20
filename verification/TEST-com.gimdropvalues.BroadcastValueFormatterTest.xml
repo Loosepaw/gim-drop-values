@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gimdropvalues.BroadcastValueFormatterTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-20T01:53:56" hostname="a9d523aeab5f" time="0.02">
+  <properties/>
+  <testcase name="supportsPersonalCommaQuantitiesAndNonbreakingSpaces" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.004"/>
+  <testcase name="supportsNonbreakingSpacesAndWholeMessageColour" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.001"/>
+  <testcase name="refusesNegativeHighAlchValues" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="supportsQuantityVariantsAndCommaQuantities" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.003"/>
+  <testcase name="formatsGameStackFromRuneLiteFixture" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="preservesGimMarkerSourceAndKillCount" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="hidesOnlyPriceInOrdinaryBroadcast" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="supportsPriceBearingReceivedDropReportsInGameChat" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.001"/>
+  <testcase name="handlesRealGimFixtureFormatsFromExistingPlugin" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="rejectsUnrelatedValuelessOrAmbiguousGameMessages" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.002"/>
+  <testcase name="keepsPersonalItemParenthesesQuantityAndTags" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="largeHighAlchTotalsDoNotOverflowOrDependOnLocale" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="keepsParenthesesInItemNames" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="rejectsUnrelatedAndValuelessMessages" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.001"/>
+  <testcase name="formatsGameValuableDropFromRuneLiteFixture" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="preservesTagsEvenWhenPriceHasItsOwnTags" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.001"/>
+  <testcase name="supportsRaidAndClueBroadcasts" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="supportsSingularCoinAndGpSuffixes" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <testcase name="keepsPersonalPrefixOutOfBroadcastParser" classname="com.gimdropvalues.BroadcastValueFormatterTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
