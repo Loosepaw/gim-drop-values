@@ -1,100 +1,92 @@
-# Validation — version 1.0.2
+# Validation — proposed version 0.1.3
 
-This update applies the selected hide-value or High Alch display mode to both
-Group Ironman broadcasts and supported personal loot reports in Game chat.
-Both options are enabled by default and can be switched independently. High
-Alch values continue to appear as `(78,000 gp)`, without an `HA:` prefix.
+Prepared November 21, 2026 (Pacific time), from source commit
+`f937e127b9bcd8c9dc1a9419e5b24eda971ea3d9`.
 
-Prepared November 19, 2026. The plugin was checked against the genuine RuneLite
-**1.13.7** client and API dependencies from the official RuneLite repository.
-The existing dependency cache was reused; this verification did not download
-or install anything.
+## Issue and scope of the correction
 
-## Results
+A live screenshot showed GIM broadcasts still displaying coin values with the
+plugin enabled, Hide coin value selected, and all channel options enabled.
+The visible sentences themselves are accepted by the existing formatter.
 
-| Check | Result |
+The investigation identified an unsupported input format: the game can place
+hidden fields before the visible sentence, separated by `|`. RuneLite's
+`chatMessageBuilding` callback runs before the game removes those fields.
+The published plugin tried to match the entire encoded string and rejected
+messages containing the additional fields.
+
+The correction is confined to `GimDropValuesPlugin.java`. It follows the
+channel-specific game-script handling, formats the visible body, and reattaches
+the original prefix unchanged. It does not change the event hook, original
+MessageNode, other plugins' events, item lookup, or High Alch calculation.
+
+The screenshot's raw message payload has not been captured. This is a verified
+compatibility defect and a plausible explanation for the report, not proof that
+hidden metadata caused that particular live failure.
+
+## Reproduction and results
+
+The actual published 0.1.2 JAR was downloaded from RuneLite's official plugin
+manifest and its content hash verified. It retains the expected plugin metadata
+and event annotations.
+
+The updated behavior tests were first run against that published JAR: **19
+behavior tests ran and 4 failed**, all because coin values remained unchanged
+in messages with modeled hidden metadata. After applying the correction, all
+six production and four test/launcher Java files compiled successfully.
+
+| Suite | Result |
 | --- | --- |
-| Compile six main Java files | Passed against the real RuneLite dependency classpath |
-| Compile four test/launcher Java files | Passed |
-| Broadcast and personal Game chat parsing and formatting | 19 tests passed |
-| Channel filtering and render-only plugin behavior | 13 tests passed |
-| Exact item matching and High Alch calculation | 5 tests passed |
-| Overall automated tests | **37 passed, 0 failed, 0 errors, 0 skipped** |
-| Plugin bytecode version | 55 (Java 11 target) |
-| Gradle test, build, and shadowJar packaging | Passed using the compiled source sets |
-| Prebuilt client launch or CLI smoke check | Not performed for this update |
-| Live OSRS login, Group Ironman drop, or personal Game chat drop | Not performed |
-| Windows batch execution | Not performed; scripts were reviewed in a Linux build environment |
+| Broadcast and personal Game chat formatting | 20 passed |
+| Event dispatch, chat formatting, and plugin behavior | 19 passed |
+| Item-name resolution and High Alch arithmetic | 5 passed |
+| Total | **44 passed, 0 failures** |
 
-The tests cover published Group Ironman broadcast and RuneLite valuable-drop
-examples, coloured messages, leading Group Ironman markers, stack quantities,
-item names with parentheses, source/kill-count text, and personal loot reports
-in both RuneLite game-message types. They verify the two independent channel
-switches, consistent whole-stack High Alch values, and preservation of original
-messages. Player chat, malformed values, unrelated messages, PvP announcements,
-and aggregate loot totals are left alone. Item-resolution tests cover duplicate
-names, unknown HA values, currency items, and arithmetic overflow.
+Behavior tests now use RuneLite's genuine EventBus. The GIM hide/High Alch and
+Game-chat High Alch regressions also run RuneLite's genuine ChatMessageManager
+first, including chat recoloring. The Client and MessageNode interfaces use
+test doubles; this is not a logged-in client simulation.
 
-Plugin behavior checks use the genuine RuneLite API interfaces through Java
-test doubles and verify that the original MessageNode is never changed. They
-do not simulate a logged-in game server. The three JUnit result XML files are
-included in **verification/**.
+The two visible screenshot sentences are included in regression tests. Hidden
+prefixes such as `||` and `|metadata|` are modeled from the game-script contract,
+not represented as captured user packets. Coverage checks preservation of
+metadata and color markup, whole-stack High Alch values without an HA label,
+independent channel options, player-chat exclusions, and unchanged original
+messages. Guest-clan/SPAM messages do not receive metadata handling that their
+rendering paths lack. Additional unsupported separators remain unchanged.
 
-## Build environment qualification
+## Build environment
 
-The build environment provided Java 21 runtime modules, including the genuine
-Java compiler, but lacked the normal `javac` launcher and `ct.sym` archive.
-Verification used this sequence:
+Verification used genuine RuneLite 1.13.7 client/API dependencies and JUnit
+4.13.2 recovered from the previously prepared development archive. Freshly
+compiled project classes were placed first on the test classpath.
 
-1. Reuse the genuine RuneLite, JUnit, and transitive dependency classpath that
-   Gradle previously resolved.
-2. Compile the main and test sources with
-   `java com.sun.tools.javac.Main -source 11 -target 11` against that classpath.
-3. Run Gradle offline with `test build shadowJar -x compileJava
-   -x compileTestJava -PruneLiteVersion=1.13.7` using those compiled classes.
+The environment provides the Java 21 compiler module but not the `javac`
+launcher or `ct.sym`. Compilation therefore used
+`java com.sun.tools.javac.Main -source 11 -target 11`. Exact Java 11
+standard-library API checking was unavailable. The project keeps its normal
+Gradle `options.release.set(11)` configuration for full JDK builds.
 
-No replacement RuneLite API stubs were used. Exact Java 11 standard-library API
-surface checking was unavailable in that environment. The delivered Gradle
-project retains normal `options.release.set(11)` for use with a complete JDK.
+A fresh Gradle build, Windows execution, live OSRS login, and live drop test
+were not performed for this patch. No custom developer-client JAR is included
+in the source update package.
 
-## Prebuilt files
+## Live verification still needed
 
-`gim-drop-values-1.0.2-all.jar` is the executable developer client, not a Plugin
-Hub installer. It contains RuneLite 1.13.7 plus this plugin and its runtime
-dependencies.
+After the updated commit has been reviewed and published through the Plugin
+Hub, check the same GIM drop reports in Hide mode, then High Alch mode. Check a
+personal valuable-drop report as well. Change the settings and disable the
+plugin to confirm that existing lines refresh and restore correctly. If the
+reported failure persists, capture the actual callback payload and installed
+version before making another behavior change.
 
-- Size: 32,649,647 bytes.
-- SHA-256: `009c8b46f230561f62be6e8d74a2c0d854f54c6ba447b619e917f3b16c21b36c`.
-- Launch flags: `-ea` before `-jar`, and `--developer-mode` after the JAR path.
+## Primary implementation references
 
-The separate small development artifact, `gim-drop-values-1.0.2.jar`, is 13,903
-bytes with SHA-256
-`a3952cd540ebb12dfd90b8bfd0aeac54e261e55d2e123d029187d8b0426c1531`.
+- [RuneLite ChatBuilder script](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/scripts/ChatBuilder.rs2asm)
+- [RuneLite ChatMessageManager](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/chat/ChatMessageManager.java)
+- [Official 1.13.7 Plugin Hub manifest](https://repo.runelite.net/plugins/manifest/1.13.7_full.js)
 
-The mandatory assertion flag is included in **run-prebuilt.bat** and the source
-launcher. The normal source launch task follows RuneLite's latest stable
-release so that the project can be rebuilt after game updates.
-
-## Live behavior still to verify
-
-When live verification is undertaken, leave the existing OSRS Group Ironman
-broadcast and personal loot-notification settings enabled. Check a qualifying
-Group Ironman drop and a personal Game chat item report in both display modes,
-including a stack of multiple items. Toggle the two plugin channel options
-independently, and disable the plugin to check restoration of the original
-lines. Existing OSRS thresholds continue to decide which messages are sent;
-HA display does not change those thresholds.
-
-Whole-loot summaries such as `Your loot is worth around ...` remain controlled
-by RuneLite's Loot Tracker **Price type** setting and are outside this plugin's
-individual-item formatting.
-
-## Windows launcher status
-
-The launcher checks candidate Java versions before starting the client. It
-tries the normal RuneLite bundled runtime, then `JAVA_HOME`, then Java
-executables on `PATH`. Old or broken candidates do not stop discovery. A client
-failure after selecting Java is reported separately with its actual console
-output and exit code. Its JAR references now point to version 1.0.2.
-
-Windows batch execution remains unverified in this Linux environment.
+The released RuneLite ChatBuilder and current Jagex game script were inspected.
+The relevant game helper splits at the first pipe; GIM messages consume the
+routing marker and then an optional metadata field. Regular clan and Game
+messages have their own optional metadata handling.

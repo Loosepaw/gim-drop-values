@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="com.gimdropvalues.GimDropValuesBehaviorTest" skipped="0" tests="19" time="0.265314">
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="unrelatedGamePricesAndAggregateTotalsAreNotModified" time="0.208262"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="bothReportsUseTheSameHighAlchModeAndQuantity" time="0.006219"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="hiddenGroupMetadataKeepsHighAlchValueAndOriginalNode" time="0.018364"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="unsupportedMetadataFieldsRemainUntouched" time="0.002815"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="namedDropReportsAreAlsoHandledWhenDeliveredAsGameMessages" time="0.001192"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="hidesOnlyDrawnPriceAndLeavesOriginalMessageAndOtherStackFieldsIntact" time="0.001046"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="hiddenClanMetadataUsesTheClanOption" time="0.001851"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="sameWordsTypedByPlayerAreNotModified" time="0.001006"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="optionalChannelsStillNeverIncludeHumanChat" time="0.000300"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="personalDropWordsTypedByPlayersAreNotModified" time="0.003729"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="unknownHighAlchValueAlsoHidesPersonalGamePrice" time="0.001426"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="gameAndGroupSettingsCanBeDisabledIndependently" time="0.001759"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="defaultsAcceptGroupAndGameSystemMessages" time="0.000155"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="highAlchModeUsesWholeStackAndUnknownValueFallsBackToNameOnly" time="0.002463"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="hiddenGameMetadataUsesWholeStackHighAlchValue" time="0.003438"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="metadataDoesNotBypassGroupGameOrPlayerChatExclusions" time="0.003448"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="unrelatedCallbackAndNonDropBroadcastAreNotModified" time="0.001891"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="hidesPersonalGameDropInBothGameMessageTypesWithoutChangingOriginal" time="0.001996"/>
+  <testcase classname="com.gimdropvalues.GimDropValuesBehaviorTest" name="hiddenGroupPrefixesWorkWithRuneLiteChatFormatting" time="0.003955"/>
+</testsuite>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="com.gimdropvalues.HighAlchResolverTest" skipped="0" tests="5" time="0.002304">
+  <testcase classname="com.gimdropvalues.HighAlchResolverTest" name="coinsAreNotPresentedAsAlchemyProceeds" time="0.000549"/>
+  <testcase classname="com.gimdropvalues.HighAlchResolverTest" name="unknownAndPartialMatchesDoNotProduceInventedPrices" time="0.000773"/>
+  <testcase classname="com.gimdropvalues.HighAlchResolverTest" name="duplicateNamesAreSafeOnlyWhenTheirValuesAgree" time="0.000512"/>
+  <testcase classname="com.gimdropvalues.HighAlchResolverTest" name="wholeStackUsesLongArithmeticAndFailsClosedOnOverflow" time="0.000154"/>
+  <testcase classname="com.gimdropvalues.HighAlchResolverTest" name="exactNameWinsOverSimilarItemsAndFormattingDifferences" time="0.000317"/>
+</testsuite>

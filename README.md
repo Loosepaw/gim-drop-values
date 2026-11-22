@@ -5,9 +5,8 @@ announcements and your own valuable-drop reports in Game chat. Choose
 **Hide coin value** or **Show High Alch value** in its settings. Hiding is the
 default, and both Group Ironman and personal Game chat reports start enabled.
 
-**Review status:** This plugin has not been
-reviewed or approved by RuneLite or Jagex. The recommendation is to wait for
-Plugin Hub review and acceptance before using it on your account.
+Install the published version through RuneLite's Plugin Hub. Source changes
+take effect in the Hub after the corresponding update is reviewed and published.
 
 ## What it does
 
@@ -63,9 +62,8 @@ Selecting High Alch mode does not change either threshold to use HA values.
 
 ## Installation and development
 
-This plugin is awaiting a Plugin Hub submission and is not yet available in
-RuneLite's plugin list. After acceptance and publication, install it through
-the Plugin Hub in your usual RuneLite client and search for **GIM Drop Values**.
+Open the Plugin Hub in your usual RuneLite client and search for
+**GIM Drop Values**.
 
 Both **Group Ironman broadcasts** and **Game chat loot reports** start enabled.
 Choose **Hide coin value** or **Show High Alch value** to apply the same display
@@ -85,6 +83,12 @@ the built-in chat formatter. It accepts supported loot messages in the enabled
 broadcast and Game chat channels and edits only the displayed message string on
 the script's object stack. The underlying `MessageNode` and `ChatMessage` event
 are not modified, so other plugins can keep reading the original message.
+
+Game and clan system messages can include hidden fields separated by `|`
+before the visible sentence. The plugin follows the game's channel-specific
+prefix handling, formats the visible drop sentence, and preserves those fields
+unchanged. Guest-clan messages and filtered Game chat retain their separate
+handling.
 
 Changing the setting refreshes existing chat lines. Disabling the plugin
 restores their normal display. If another plugin fully rewrites the same
