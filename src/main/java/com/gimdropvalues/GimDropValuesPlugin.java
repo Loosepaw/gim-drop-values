@@ -107,9 +107,15 @@ public class GimDropValuesPlugin extends Plugin
 		}
 
 		String message = (String) objects[messageIndex];
+		int displayStart = displayStart(message, node.getType());
+		String displayedMessage = message.substring(displayStart);
+		if (displayedMessage.indexOf('|') >= 0)
+		{
+			return;
+		}
 		Optional<BroadcastValueFormatter.ParsedDrop> parsed = isGameMessage(node.getType())
-			? BroadcastValueFormatter.parseGameMessage(message)
-			: BroadcastValueFormatter.parse(message);
+			? BroadcastValueFormatter.parseGameMessage(displayedMessage)
+			: BroadcastValueFormatter.parse(displayedMessage);
 		if (!parsed.isPresent())
 		{
 			return;
@@ -124,7 +130,29 @@ public class GimDropValuesPlugin extends Plugin
 				replacement = drop.withHighAlchValue(total.getAsLong());
 			}
 		}
-		objects[messageIndex] = replacement;
+		objects[messageIndex] = message.substring(0, displayStart) + replacement;
+	}
+
+	/**
+	 * ChatBuilder removes these fields after chatMessageBuilding: a leading GIM
+	 * marker and optional metadata for clan messages, or optional metadata for
+	 * game messages. Keep the prefix untouched and parse only the displayed body.
+	 * Guest-clan messages and SPAM do not use that metadata-splitting path.
+	 */
+	private static int displayStart(String message, ChatMessageType type)
+	{
+		int start = 0;
+		if (type == ChatMessageType.CLAN_GIM_MESSAGE || type == ChatMessageType.CLAN_MESSAGE)
+		{
+			start = message.startsWith("|") ? 1 : 0;
+		}
+		else if (type != ChatMessageType.GAMEMESSAGE)
+		{
+			return 0;
+		}
+
+		int separator = message.indexOf('|', start);
+		return separator >= 0 ? separator + 1 : start;
 	}
 
 	static boolean accepts(ChatMessageType type, GimDropValuesConfig configuration)
